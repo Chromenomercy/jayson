@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    class Interface
+    public class Interface
     {
         public Tuple<string, Int16, string> Read()
         {
