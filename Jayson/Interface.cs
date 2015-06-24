@@ -31,6 +31,10 @@ namespace Jayson
             synth.SetOutputToDefaultAudioDevice();
         }
 
+        public void Say(string sentence)
+        {
+            synth.Speak("You Typed: " + sentence);
+        }
         public Tuple<string, Int16, string> Read()
         {
             String raw_input;
@@ -54,6 +58,11 @@ namespace Jayson
             
             Tuple<string, Int16, string> data = new Tuple<string, Int16, string>(name, type, value);
             return data;
+        }
+
+        public void Listen()
+        {
+            sre.Recognize();
         }
 
         private void sre_Speechrecognised(object sender, SpeechRecognizedEventArgs e)
