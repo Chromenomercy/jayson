@@ -13,30 +13,14 @@ namespace Jayson
     {
         SpeechSynthesizer synth;
         SpeechRecognitionEngine sre;
-        
-        string conString;
-
-        DatabaseConnection objConnect;
-        DataSet ds;
 
         public Interface()
         {
-            //objConnect = new DatabaseConnection();
-            //conString = Properties.Settings.Default.DictionaryConnectionString;
-
-            //.connection_string = conString;
-            //objConnect.Sql = Properties.Settings.Default.SQL;
-
-            //ds = objConnect.GetConnection;
 
             synth = new SpeechSynthesizer();
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             synth.SelectVoiceByHints(VoiceGender.Male);
             Choices words = new Choices();
-            //foreach (DataRow row in ds.Tables[0].Rows)
-            //{
-            //    words.Add(row[0].ToString());
-            //}
             words.Add("hello", "peter", "lauren", "bob", "what");
 
             GrammarBuilder gb = new GrammarBuilder();
