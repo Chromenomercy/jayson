@@ -26,11 +26,21 @@ namespace Jayson.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\v11.0;Initial Catalog=Dictionary;Integrated Security=True;C" +
-            "onnect Timeout=30")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\v11.0;AttachDbFilename=\"C:\\Users\\Peter\\AppData\\Local\\Micros" +
+            "oft\\Microsoft SQL Server Local DB\\Instances\\v11.0\\Dictionary.mdf\";Initial Catalo" +
+            "g=dictionary;Integrated Security=True;Connect Timeout=30")]
         public string DictionaryConnectionString {
             get {
                 return ((string)(this["DictionaryConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SELECT * FROM dictionary")]
+        public string SQL {
+            get {
+                return ((string)(this["SQL"]));
             }
         }
     }

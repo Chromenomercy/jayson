@@ -2,7 +2,7 @@
     
     
     public partial class DataSet1 {
-        partial class TableDataTable
+        partial class DataTable1DataTable
         {
         }
     }

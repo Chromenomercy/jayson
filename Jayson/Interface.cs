@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using System.Data;
 
 namespace Jayson
 {
@@ -12,13 +13,31 @@ namespace Jayson
     {
         SpeechSynthesizer synth;
         SpeechRecognitionEngine sre;
+        
+        string conString;
+
+        DatabaseConnection objConnect;
+        DataSet ds;
+
         public Interface()
         {
+            //objConnect = new DatabaseConnection();
+            //conString = Properties.Settings.Default.DictionaryConnectionString;
+
+            //.connection_string = conString;
+            //objConnect.Sql = Properties.Settings.Default.SQL;
+
+            //ds = objConnect.GetConnection;
+
             synth = new SpeechSynthesizer();
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
-            synth.SelectVoiceByHints(VoiceGender.Female);
+            synth.SelectVoiceByHints(VoiceGender.Male);
             Choices words = new Choices();
-            words.Add(new string[] { "red", "green", "jason", "blue", "peter", "jack"});
+            //foreach (DataRow row in ds.Tables[0].Rows)
+            //{
+            //    words.Add(row[0].ToString());
+            //}
+            words.Add("hello", "peter", "lauren", "bob", "what");
 
             GrammarBuilder gb = new GrammarBuilder();
             gb.Append(words);
@@ -29,6 +48,7 @@ namespace Jayson
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_Speechrecognised);
             sre.SetInputToDefaultAudioDevice();
             synth.SetOutputToDefaultAudioDevice();
+            synth.Speak("Hello humans, my name is Jayson. What would you like me to say?");
         }
 
         public void Say(string sentence)
@@ -67,7 +87,7 @@ namespace Jayson
 
         private void sre_Speechrecognised(object sender, SpeechRecognizedEventArgs e)
         {
-            synth.Speak("You said: " + e.Result.Text);
+            synth.Speak("What does "+e.Result.Text+" mean?");
         }
 
     }
