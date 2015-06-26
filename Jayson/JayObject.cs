@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    interface JayObject
+    interface JayObject<T>
     {
-        string Name { get; }
+        string Name { get; set; }
+        T Value { get; set; }
     }
 }
