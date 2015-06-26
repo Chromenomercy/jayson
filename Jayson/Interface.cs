@@ -21,7 +21,7 @@ namespace Jayson
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             synth.SelectVoiceByHints(VoiceGender.Male);
             Choices words = new Choices();
-            words.Add("hello", "peter", "lauren", "bob", "what");
+            words.Add("hello", "peter", "lauren", "bob", "what", "jack");
 
             GrammarBuilder gb = new GrammarBuilder();
             gb.Append(words);
@@ -32,7 +32,7 @@ namespace Jayson
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_Speechrecognised);
             sre.SetInputToDefaultAudioDevice();
             synth.SetOutputToDefaultAudioDevice();
-            synth.Speak("Hello humans, my name is Jayson. What would you like me to say?");
+            synth.Speak("Hello human, my name is Jayson. What would you like me to say?");
         }
 
         public void Say(string sentence)
