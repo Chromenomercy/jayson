@@ -14,14 +14,14 @@ namespace Jayson
         SpeechSynthesizer synth;
         SpeechRecognitionEngine sre;
 
-        public Interface()
+        public Interface(JayDictionary dictionary)
         {
 
             synth = new SpeechSynthesizer();
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
             synth.SelectVoiceByHints(VoiceGender.Male);
             Choices words = new Choices();
-            words.Add("hello", "peter", "lauren", "bob", "what", "jack");
+            words.Add(dictionary.GetAllWords());
 
             GrammarBuilder gb = new GrammarBuilder();
             gb.Append(words);

@@ -10,10 +10,12 @@ namespace Jayson
     {
         static void Main(string[] args)
         {
-            Interface jayInterface = new Interface();
+            JayDictionary dictionary = new JayDictionary();
+            dictionary.Load();
+            Interface jayInterface = new Interface(dictionary);
             while (true)
             {
-                //jayInterface.Say(Convert.ToString(jayInterface.Read()));
+                jayInterface.Say(Convert.ToString(jayInterface.Read()));
                 jayInterface.Listen();
             }
         }

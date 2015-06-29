@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    interface JayObject<T>
+    class Word
     {
-        string Name { get; set; }
-        T Value { get; set; }
     }
 }
