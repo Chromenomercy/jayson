@@ -32,7 +32,7 @@ namespace Jayson
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_Speechrecognised);
             sre.SetInputToDefaultAudioDevice();
             synth.SetOutputToDefaultAudioDevice();
-            synth.Speak("Hello human, my name is Jayson. What would you like me to say?");
+            synth.Speak("Hi, I'm Jason. I don't know anything yet!");
         }
 
         public void Say(string sentence)
@@ -57,7 +57,7 @@ namespace Jayson
             }
             catch (Exception e)
             {
-                return new Tuple<string, Int16, string>("jayson_error", 1, e.ToString());
+                return new Tuple<string, Int16, string>("jayson_error", 1, "try again!");
             }
             
             Tuple<string, Int16, string> data = new Tuple<string, Int16, string>(name, type, value);

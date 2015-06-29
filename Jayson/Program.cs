@@ -15,7 +15,7 @@ namespace Jayson
             Interface jayInterface = new Interface(dictionary);
             while (true)
             {
-                jayInterface.Say(Convert.ToString(jayInterface.Read()));
+                //jayInterface.Say(Convert.ToString(jayInterface.Read()));
                 jayInterface.Listen();
             }
         }
