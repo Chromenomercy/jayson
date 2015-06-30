@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    class Word
+    class WordProperties
     {
-        string Type;
-        WordProperties properties;
+        List<string> descriptors;
+        List<List<string>> sentense_structures;
     }
 }
