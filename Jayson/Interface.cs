@@ -18,8 +18,8 @@ namespace Jayson
         {
 
             synth = new SpeechSynthesizer();
-            sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-US"));
-            synth.SelectVoiceByHints(VoiceGender.Male);
+            sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-GB"));
+            
             Choices words = new Choices();
             words.Add(dictionary.GetAllWords());
 
