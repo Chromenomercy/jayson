@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    class Word
+    public class Word
     {
-        string Type;
-        WordProperties properties;
+        public string Name;
+        public Int16 current_focus;
+        public WordProperties properties;
+        public Word(string name, WordProperties properties)
+        {
+            Name = name;
+            this.properties = properties;
+        }
     }
 }

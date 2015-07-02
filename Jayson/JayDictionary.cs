@@ -34,14 +34,14 @@ namespace Jayson
             root = document.LastChild;
         }
 
-        public string[] GetAllWords()
+        public Word[] GetAllWords()
         {
-            List<string> words = new List<string>();
+            List<Word> words = new List<Word>();
             foreach (XmlNode node in root.ChildNodes)
             {
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
-                    words.Add(node1.Name);
+                    words.Add(new Word(node1.Name, new WordProperties(node.Name)));
                 }
             }
             return words.ToArray();

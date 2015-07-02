@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Jayson
 {
-    class WordProperties
+    public class WordProperties
     {
-        List<string> descriptors;
-        List<List<string>> sentense_structures;
+        public List<string> descriptors;
+        public List<List<string>> sentense_structures;
+        public string Type;
+        public WordProperties(string Type)
+        {
+            this.Type = Type;
+        }
     }
 }
