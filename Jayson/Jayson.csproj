@@ -57,7 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adverb.cs" />
     <Compile Include="JayDictionary.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Program.cs" />

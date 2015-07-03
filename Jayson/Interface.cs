@@ -21,7 +21,7 @@ namespace Jayson
             sre = new SpeechRecognitionEngine(new System.Globalization.CultureInfo("en-GB"));
             
             Choices words = new Choices();
-            foreach(Word word in dictionary.GetAllWords())
+            foreach(Word word in dictionary.Words)
             {
                 words.Add(word.Name);
             }

@@ -12,6 +12,7 @@ namespace Jayson
     {
         XmlDocument document;
         XmlNode root;
+        public Word[] Words;
         public JayDictionary()
         {
             document = new XmlDocument();
@@ -32,16 +33,17 @@ namespace Jayson
             }
             document.Load(dictionary_path);
             root = document.LastChild;
+            Words = GetAllWords();
         }
 
-        public Word[] GetAllWords()
+        private Word[] GetAllWords()
         {
             List<Word> words = new List<Word>();
             foreach (XmlNode node in root.ChildNodes)
             {
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
-                    words.Add(new Word(node1.Name, new WordProperties(node.Name)));
+                    words.Add(new Word(node1.Name, new WordProperties(node.Name, node1.ChildNodes)));
                 }
             }
             return words.ToArray();
