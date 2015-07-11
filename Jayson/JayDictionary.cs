@@ -43,7 +43,15 @@ namespace Jayson
             {
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
-                    words.Add(new Word(node1.Name, new WordProperties(node.Name, node1.ChildNodes)));
+                    string[] contexts = {};
+                    XmlNodeList nodes = node1.ChildNodes;
+                    foreach(XmlNode property in nodes){
+                        if (property.Name == "contexts")
+                        {
+                            contexts = property.InnerText.Split(new string[] {","}, StringSplitOptions.None);
+                        }
+                    }
+                    words.Add(new Word(node1.Name, new WordProperties(node.Name, contexts)));
                 }
             }
             return words.ToArray();
