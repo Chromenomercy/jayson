@@ -61,6 +61,14 @@ namespace Jayson
             }
             return words.ToArray();
         }
+
+        public Boolean Contains(String name)
+        {
+            foreach (Word word in Words)
+                if (name == word.Name)
+                    return true;
+            return false;
+        }
     }
 }
  
