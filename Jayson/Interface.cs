@@ -35,36 +35,25 @@ namespace Jayson
             sre.SpeechRecognized += new EventHandler<SpeechRecognizedEventArgs>(sre_Speechrecognised);
             sre.SetInputToDefaultAudioDevice();
             synth.SetOutputToDefaultAudioDevice();
-            synth.Speak("Hi, I'm Jason. I don't know anything yet!");
+            synth.Speak("Hi, I'm Jason. Give me a sentence to learn!");
         }
 
         public void Say(string sentence)
         {
             synth.Speak("You Typed: " + sentence);
         }
-        public Tuple<string, Int16, string> Read()
+        public List<String[]> Read()
         {
+            List<String[]> sentences = new List<String[]>();
             String raw_input;
-            String[] input;
-            String name;
-            Int16 type;
-            String value;
 
             raw_input = Console.ReadLine();
-            input = raw_input.Split(':');
-            try
+            foreach (String sentence in raw_input.Split('.'))
             {
-                name = input[0];
-                type = Convert.ToInt16(input[1]);
-                value = input[2];
+                sentences.Add(sentence.Split(' '));
             }
-            catch (Exception e)
-            {
-                return new Tuple<string, Int16, string>("jayson_error", 1, "try again!");
-            }
-            
-            Tuple<string, Int16, string> data = new Tuple<string, Int16, string>(name, type, value);
-            return data;
+
+            return sentences;
         }
 
         public void Listen()

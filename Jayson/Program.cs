@@ -13,9 +13,10 @@ namespace Jayson
             JayDictionary dictionary = new JayDictionary();
             dictionary.Load();
             Interface jayInterface = new Interface(dictionary);
+            SentenceLearner learner = new SentenceLearner();
             while (true)
             {
-                jayInterface.Listen();
+                learner.learn(jayInterface.Read());
             }
         }
 
