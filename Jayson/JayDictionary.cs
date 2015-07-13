@@ -13,17 +13,20 @@ namespace Jayson
         XmlDocument document;
         XmlNode root;
         public Word[] Words;
+        string directory_path;
+        string dictionary_path;
+        List<string> word_types;
         public JayDictionary()
         {
-            document = new XmlDocument();
+            document = new XmlDocument(); 
+            directory_path = Path.Combine(
+                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                 @"jason_ai"
+             );
+            dictionary_path = Path.Combine(directory_path, @"dictionary.xml");
         }
         public void Load()
         {
-            string directory_path = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                @"jason_ai"
-            );
-            string dictionary_path = Path.Combine(directory_path, @"dictionary.xml");
             Directory.CreateDirectory(directory_path);
             if (!File.Exists(dictionary_path))
             {
@@ -39,8 +42,10 @@ namespace Jayson
         private Word[] GetAllWords()
         {
             List<Word> words = new List<Word>();
+            word_types = new List<string>();
             foreach (XmlNode node in root.ChildNodes)
             {
+                word_types.Add(node.Name);
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
                     string[] contexts = {};
