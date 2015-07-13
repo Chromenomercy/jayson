@@ -39,6 +39,16 @@ namespace Jayson
             Words = GetAllWords();
         }
 
+        public List<string> GetTypes(String WordName)
+        {
+            List<string> types = new List<string>();
+            foreach (Word word in Words)
+                if (WordName == word.Name)
+                    types.Add(word.properties.Type);
+            return types;
+ 
+        }
+
         private Word[] GetAllWords()
         {
             List<Word> words = new List<Word>();
