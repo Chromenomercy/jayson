@@ -15,7 +15,7 @@ namespace Jayson
         public Word[] Words;
         string directory_path;
         string dictionary_path;
-        List<string> word_types;
+        public List<string> word_types;
         public JayDictionary()
         {
             document = new XmlDocument(); 
