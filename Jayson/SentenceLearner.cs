@@ -24,7 +24,7 @@ namespace Jayson
             String[] yesses = {"yes", "y"};
             if (dictionary.Contains(word))
             {
-                Console.WriteLine(word + "found in JayDictionary");
+                Console.WriteLine(word + " found in JayDictionary");
                 foreach (String ex_word_type in dictionary.GetTypes(word))
                 {
                     Console.WriteLine("Is " + word + " a " + ex_word_type + "? ");
@@ -53,8 +53,8 @@ namespace Jayson
         }
         private void new_word(String word)
             {
-                Console.WriteLine(word + "not found in JayDictionary");
-                Console.Write("what word type is" + word + "? ");
+                Console.WriteLine(word + " not found in JayDictionary");
+                Console.Write("what word type is " + word + "? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                     Console.WriteLine("Done");
