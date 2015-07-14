@@ -51,22 +51,20 @@ namespace Jayson
         private void new_word(String word)
         {
             bool confirmed = false;
+            Console.WriteLine("('" + word + "' not found in JayDictionary)");
             while (!confirmed)
             {
-                Console.WriteLine("('" + word + "' not found in JayDictionary)");
                 Console.Write("what word type is " + word + "? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                 {
-                    Console.WriteLine("Is that the only word type for '" + word + "'?");
-                    if (yesses.Contains(Console.ReadLine().ToLower()))
-                    {
-                        confirmed = true;
-                        Console.WriteLine("Done");
-                    }
+                    Console.WriteLine("Done");
                 }
                 else
                     Console.WriteLine("Not found in JayDictionary, please add type");
+                Console.WriteLine("Is that the only word type for '" + word + "'?");
+                    if (yesses.Contains(Console.ReadLine().ToLower()))
+                        confirmed = true;
             }
         }
     }
