@@ -12,7 +12,7 @@ namespace Jayson
     {
         XmlDocument document;
         XmlNode root;
-        public Word[] Words;
+        public List<Word> Words;
         string directory_path;
         string dictionary_path;
         public List<string> word_types;
@@ -49,7 +49,7 @@ namespace Jayson
  
         }
 
-        private Word[] GetAllWords()
+        private List<Word> GetAllWords()
         {
             List<Word> words = new List<Word>();
             word_types = new List<string>();
@@ -69,7 +69,7 @@ namespace Jayson
                     words.Add(new Word(node1.Name, new WordProperties(node.Name, contexts)));
                 }
             }
-            return words.ToArray();
+            return words;
         }
 
         public Boolean Contains(String name)
@@ -78,6 +78,24 @@ namespace Jayson
                 if (name == word.Name)
                     return true;
             return false;
+        }
+
+        public void CreateWord(string word_name, string word_type)
+        {
+            Boolean existing = false;
+            foreach(Word word in Words)
+                if (word.Name == word_name && word.properties.Type == word_type)
+                    existing = true;
+            
+            if(!existing)
+                Words.Add(new Word(word_name, new WordProperties(word_type)));
+        }
+        public void PrintAll()
+        {
+            foreach(Word word in Words)
+            {
+                Console.WriteLine(word.Name + ": " + word.properties.Type);
+            }
         }
     }
 }

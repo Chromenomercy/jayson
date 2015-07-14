@@ -57,7 +57,10 @@ namespace Jayson
                 Console.Write("what word type is " + word + "? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
+                {
+                    dictionary.CreateWord(word, word_type);
                     Console.WriteLine("Done");
+                }
                 else
                     Console.WriteLine("Not found in JayDictionary, please add type");
             }

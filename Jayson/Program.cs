@@ -17,6 +17,7 @@ namespace Jayson
             while (true)
             {
                 learner.learn(jayInterface.Read());
+                dictionary.PrintAll();
             }
         }
 
