@@ -8,6 +8,7 @@ namespace Jayson
 {
     class SentenceLearner
     {
+        String[] yesses = { "yes", "y" };
         JayDictionary dictionary;
         public SentenceLearner(JayDictionary dictionary)
         {
@@ -21,7 +22,6 @@ namespace Jayson
         }
         public void ask_word(string word)
         {
-            String[] yesses = {"yes", "y"};
             if (dictionary.Contains(word))
             {
                 Console.WriteLine("('" + word + "' found in JayDictionary)");
@@ -30,8 +30,6 @@ namespace Jayson
                     Console.WriteLine("Is '" + word + "' a " + ex_word_type + "? ");
                     Console.WriteLine("Thank you");
                 }
-                Boolean confirmed = false;
-                while (!confirmed)
                 {
                     Console.WriteLine("Does the word have a different word type?");
                     if (yesses.Contains(Console.ReadLine().ToLower()))
@@ -41,7 +39,6 @@ namespace Jayson
                     else
                     {
                         Console.WriteLine("Thanks");
-                        confirmed = false;
                     }
                 }
             }
@@ -52,17 +49,25 @@ namespace Jayson
             }
         }
         private void new_word(String word)
+        {
+            bool confirmed = false;
+            while (!confirmed)
             {
                 Console.WriteLine("('" + word + "' not found in JayDictionary)");
                 Console.Write("what word type is " + word + "? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                 {
-                    dictionary.CreateWord(word, word_type);
-                    Console.WriteLine("Done");
+                    Console.WriteLine("Is that the only word type for '" + word + "'?");
+                    if (yesses.Contains(Console.ReadLine().ToLower()))
+                    {
+                        confirmed = true;
+                        Console.WriteLine("Done");
+                    }
                 }
                 else
                     Console.WriteLine("Not found in JayDictionary, please add type");
             }
+        }
     }
 }
