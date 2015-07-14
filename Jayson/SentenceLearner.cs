@@ -52,9 +52,13 @@ namespace Jayson
         {
             bool confirmed = false;
             Console.WriteLine("('" + word + "' not found in JayDictionary)");
+            int asked =0;
             while (!confirmed)
             {
-                Console.Write("what word type is " + word + "? ");
+                if (asked == 0)
+                    Console.Write("What word type is " + word + "? ");
+                else
+                    Console.Write("What other word type is " + word + "? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                 {
@@ -65,6 +69,7 @@ namespace Jayson
                 Console.WriteLine("Is that the only word type for '" + word + "'?");
                     if (yesses.Contains(Console.ReadLine().ToLower()))
                         confirmed = true;
+                asked++;
             }
         }
     }
