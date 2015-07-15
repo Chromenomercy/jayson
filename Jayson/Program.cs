@@ -27,10 +27,10 @@ namespace Jayson
                         {
                             running = false;
                             Console.WriteLine("Goodbye");
-                            Console.Read();
+                            Console.ReadLine();
                             dictionary.SaveAll();
                             dictionary.PrintAll();
-                            Console.Read();
+                            Console.ReadLine();
                         }
                     }
                 }
