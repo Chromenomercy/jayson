@@ -97,6 +97,6 @@ namespace Jayson
                 Console.WriteLine(word.Name + ": " + word.properties.Type);
             }
         }
-    }
+    } 
 }
  
