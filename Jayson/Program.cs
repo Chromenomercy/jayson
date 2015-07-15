@@ -14,10 +14,26 @@ namespace Jayson
             dictionary.Load();
             Interface jayInterface = new Interface(dictionary);
             SentenceLearner learner = new SentenceLearner(dictionary);
-            while (true)
+            bool running = true;
+            while (running)
             {
-                learner.learn(jayInterface.Read());
-                dictionary.PrintAll();
+                List<string[]> output = jayInterface.Read();
+                learner.learn(output);
+                foreach (String[] sentence in output)
+                {
+                    foreach(String word in sentence)
+                    {
+                        if ("bye goodbye cya".Contains(word.ToLower()))
+                        {
+                            running = false;
+                            Console.WriteLine("Goodbye");
+                            Console.Read();
+                            dictionary.SaveAll();
+                            dictionary.PrintAll();
+                            Console.Read();
+                        }
+                    }
+                }
             }
         }
 

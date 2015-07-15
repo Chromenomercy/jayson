@@ -97,6 +97,25 @@ namespace Jayson
                 Console.WriteLine(word.Name + ": " + word.properties.Type);
             }
         }
-    } 
+        public void SaveAll()
+        {
+            XmlDocument NewDocument = new XmlDocument();
+            XmlNode rootNode = NewDocument.CreateElement("dictionary");
+            NewDocument.AppendChild(rootNode);
+            foreach (string type in word_types)
+            {
+                XmlNode typeNode = NewDocument.CreateElement(type);
+                rootNode.AppendChild(typeNode);
+            }
+            foreach (Word word in Words)
+            {
+                XmlNode WordNode = NewDocument.CreateElement(word.Name);
+                foreach (XmlNode type in rootNode.ChildNodes)
+                    if (type.Name == word.properties.Type)
+                        type.AppendChild(WordNode);
+            }
+            NewDocument.Save(dictionary_path);
+        }
+    }
 }
  

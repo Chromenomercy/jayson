@@ -62,6 +62,7 @@ namespace Jayson
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                 {
+                    dictionary.CreateWord(word, word_type);
                     Console.WriteLine("Done");
                 }
                 else
