@@ -16,20 +16,33 @@ namespace Jayson
         }
         public void learn(List<string[]> sentences)
         {
+            string[] structure;
+            int i;
             foreach (String[] sentence in sentences)
+            {
+                structure = new string[sentence.Length];
+                i = 0;
                 foreach (String word in sentence)
-                    ask_word(new string((from c in word where char.IsLetterOrDigit(c) select c).ToArray()));
+                {
+                    string clean_word = new string((from c in word where char.IsLetterOrDigit(c) select c).ToArray());
+                    structure[i]=ask_word(clean_word);
+                    i++;
+                }
+                i=0;
+                foreach (String word in sentence)
+                {
+                    dictionary.AddSentenceStructure(new List<string>(structure), word, structure[i], i);
+                    i++;
+                }
+            }
         }
-        public void ask_word(string word)
+        public string ask_word(string word)
         {
+            Console.WriteLine("What type of word is \"" + word + "\" when used in that context?");
+            string first_type = Console.ReadLine();
             if (dictionary.Contains(word))
             {
-                Console.WriteLine("('" + word + "' found in JayDictionary)");
-                foreach (String ex_word_type in dictionary.GetTypes(word))
-                {
-                    Console.WriteLine("Is '" + word + "' a " + ex_word_type + "? ");
-                    Console.WriteLine("Thank you");
-                }
+                Console.WriteLine("(\"" + word + "\" found in JayDictionary)");
                 {
                     Console.WriteLine("Does the word have a different word type?");
                     if (yesses.Contains(Console.ReadLine().ToLower()))
@@ -41,24 +54,22 @@ namespace Jayson
                         Console.WriteLine("Thanks");
                     }
                 }
-            }
-
-            else
-            {
+            } else {
                 new_word(word);
             }
+            return first_type;
         }
         private void new_word(String word)
         {
             bool confirmed = false;
-            Console.WriteLine("('" + word + "' not found in JayDictionary)");
+            Console.WriteLine("(\"" + word + "\" not found in JayDictionary)");
             int asked =0;
             while (!confirmed)
             {
                 if (asked == 0)
-                    Console.Write("What word type is " + word + "? ");
+                    Console.Write("What word type is \"" + word + "\"? ");
                 else
-                    Console.Write("What other word type is " + word + "? ");
+                    Console.Write("What other word type is \"" + word + "\"? ");
                 String word_type = Console.ReadLine();
                 if (dictionary.word_types.Contains(word_type))
                 {
@@ -67,7 +78,7 @@ namespace Jayson
                 }
                 else
                     Console.WriteLine("Type not found in JayDictionary, please add type");
-                Console.WriteLine("Is that the only word type for '" + word + "'?");
+                Console.WriteLine("Is that the only word type for \"" + word + "\"?");
                     if (yesses.Contains(Console.ReadLine().ToLower()))
                         confirmed = true;
                 asked++;

@@ -49,11 +49,9 @@ namespace Jayson
             String raw_input;
 
             raw_input = Console.ReadLine();
-            foreach (String sentence in raw_input.Split('.'))
-            {
-                sentences.Add(sentence.Split(' '));
-            }
-
+            if (raw_input != "")
+                foreach (String sentence in raw_input.Split('.'))
+                    sentences.Add(sentence.Split(' '));
             return sentences;
         }
 

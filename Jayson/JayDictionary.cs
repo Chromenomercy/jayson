@@ -115,14 +115,55 @@ namespace Jayson
                 XmlNode typeNode = NewDocument.CreateElement(type);
                 rootNode.AppendChild(typeNode);
             }
+            bool start;
+            int i;
             foreach (Word word in Words)
             {
                 XmlNode WordNode = NewDocument.CreateElement(word.Name);
+                XmlNode SentenceStructures = NewDocument.CreateElement("sentence_structures");
+                string raw_sentence_structures = "";
+                start = true;
+                foreach (List<string> sentence_structure in word.properties.sentence_structures)
+                {
+                    if (start)
+                        start = false;
+                    else
+                        raw_sentence_structures += ".";
+                    i = 0;
+                    foreach (string word_type in sentence_structure)
+                    {
+                        if (i != 0)
+                            raw_sentence_structures += " ";
+                        else
+                            i = 1;
+                        raw_sentence_structures = raw_sentence_structures + word_type;
+                    }
+                }
+                SentenceStructures.InnerText = raw_sentence_structures;
+                WordNode.AppendChild(SentenceStructures);
                 foreach (XmlNode type in rootNode.ChildNodes)
                     if (type.Name == word.properties.Type)
                         type.AppendChild(WordNode);
+                
             }
             NewDocument.Save(dictionary_path);
+        }
+        public void AddSentenceStructure(List<string> sentence_structure, string WordName, string WordType, int indexOfWord)
+        {
+            sentence_structure[indexOfWord] = "this";
+            foreach (Word word in Words)
+                if (word.Name == WordName && word.properties.Type == WordType)
+                    word.properties.sentence_structures.Add(sentence_structure);
+        }
+        public List<Word> GetWordsOfType(string type)
+        {
+            List<Word> words = new List<Word>();
+            foreach (Word word in Words)
+            {
+                if (word.properties.Type == type)
+                    words.Add(word);
+            }
+            return words;
         }
     }
 }

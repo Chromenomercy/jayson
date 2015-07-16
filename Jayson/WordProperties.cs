@@ -14,6 +14,7 @@ namespace Jayson
         public WordProperties(string Type)
         {
             this.Type = Type;
+            this.sentence_structures = new List<List<string>>();
         }
 
         public WordProperties(string Type, List<List<string>> sentence_structures)

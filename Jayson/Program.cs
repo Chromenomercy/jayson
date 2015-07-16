@@ -15,6 +15,17 @@ namespace Jayson
             Interface jayInterface = new Interface(dictionary);
             SentenceLearner learner = new SentenceLearner(dictionary);
             bool running = true;
+            Word random_word = dictionary.Words[new Random().Next(0, dictionary.Words.Count())];
+            List<string> sent_struct = random_word.properties.sentence_structures[new Random().Next(0, random_word.properties.sentence_structures.Count())];
+            foreach(string word_type in sent_struct){
+                if (word_type == "this")
+                    Console.Write(" " + random_word.Name);
+                else{
+                    List<Word> options = dictionary.GetWordsOfType(word_type);
+                    Console.Write(" " + options[new Random().Next(0, options.Count())].Name);
+                }
+            }
+            Console.Write("\n");
             while (running)
             {
                 List<string[]> output = jayInterface.Read();
