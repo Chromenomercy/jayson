@@ -31,7 +31,7 @@ namespace Jayson
             if (!File.Exists(dictionary_path))
             {
                 StreamWriter file = File.CreateText(dictionary_path);
-                file.Write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<dictionary>\n  <name>\n        <jason></jason>\n   </name>\n</dictionary>");
+                file.Write("<dictionary>\n<name>\n<jason/>\n</name>\n</dictionary>");
                 file.Close();
             }
             document.Load(dictionary_path);
@@ -58,15 +58,23 @@ namespace Jayson
                 word_types.Add(node.Name);
                 foreach (XmlNode node1 in node.ChildNodes)
                 {
-                    string[] contexts = {};
+                    List<List<string>> sentence_structures = new List<List<string>>();
                     XmlNodeList nodes = node1.ChildNodes;
                     foreach(XmlNode property in nodes){
-                        if (property.Name == "contexts")
+                        if (property.Name == "sentence_structures")
                         {
-                            contexts = property.InnerText.Split(new string[] {","}, StringSplitOptions.None);
+                            foreach (string raw_sentence_structure in property.InnerText.Split('.'))
+                            {
+                                List<string> sentence_structure = new List<string>();
+                                foreach (string raw_word_type in raw_sentence_structure.Split(' '))
+                                {
+                                    sentence_structure.Add(raw_word_type);
+                                }
+                                sentence_structures.Add(sentence_structure);
+                            }
                         }
                     }
-                    words.Add(new Word(node1.Name, new WordProperties(node.Name, contexts)));
+                    words.Add(new Word(node1.Name, new WordProperties(node.Name, sentence_structures)));
                 }
             }
             return words;

@@ -8,8 +8,7 @@ namespace Jayson
 {
     public class WordProperties
     {
-        public List<string> descriptors;
-        public List<List<string>> sentense_structures;
+        public List<List<string>> sentence_structures;
         public string Type;
         private string[] contexts;
         public WordProperties(string Type)
@@ -17,10 +16,10 @@ namespace Jayson
             this.Type = Type;
         }
 
-        public WordProperties(string Type, string[] contexts)
+        public WordProperties(string Type, List<List<string>> sentence_structures)
         {
             this.Type = Type;
-            this.contexts = contexts;
+            this.sentence_structures = sentence_structures;
         }
     }
 }

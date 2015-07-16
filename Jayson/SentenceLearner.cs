@@ -18,7 +18,7 @@ namespace Jayson
         {
             foreach (String[] sentence in sentences)
                 foreach (String word in sentence)
-                    ask_word(word);
+                    ask_word(new string((from c in word where char.IsLetterOrDigit(c) select c).ToArray()));
         }
         public void ask_word(string word)
         {
