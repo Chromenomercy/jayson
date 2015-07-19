@@ -29,8 +29,9 @@ namespace Jayson
         {
             if (running)
             {
-                Word random_word = dictionary.Words[new Random().Next(0, dictionary.Words.Count())];
-                List<string> sent_struct = random_word.properties.sentence_structures[new Random().Next(0, random_word.properties.sentence_structures.Count())];
+                Random random = new Random();
+                Word random_word = dictionary.Words[random.Next(0, dictionary.Words.Count())];
+                List<string> sent_struct = random_word.properties.sentence_structures[random.Next(0, random_word.properties.sentence_structures.Count())];
                 Boolean first = true;
                 foreach (string word_type in sent_struct)
                 {
@@ -46,7 +47,7 @@ namespace Jayson
                         else
                         {
                             List<Word> options = dictionary.GetWordsOfType(word_type);
-                            string word = options[new Random().Next(0, options.Count())].Name;
+                            string word = options[random.Next(0, options.Count())].Name;
                             word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
                             Console.Write(word);
                         }
@@ -54,7 +55,7 @@ namespace Jayson
                     else if (word_type == "name")
                     {
                         List<Word> options = dictionary.GetWordsOfType(word_type);
-                        string word = options[new Random().Next(0, options.Count())].Name;
+                        string word = options[random.Next(0, options.Count())].Name;
                         word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
                         Console.Write(" " + word);
                     }
@@ -71,7 +72,7 @@ namespace Jayson
                         else
                         {
                             List<Word> options = dictionary.GetWordsOfType(word_type);
-                            Console.Write(" " + options[new Random().Next(0, options.Count())].Name);
+                            Console.Write(" " + options[random.Next(0, options.Count())].Name);
                         }
                     }
                 }
@@ -80,21 +81,19 @@ namespace Jayson
         }
         public static void Learn()
         {
-            List<string[]> output = jayInterface.Read();
-            learner.learn(output);
+            List<string[]> output = jayInterface.Read(); 
             foreach (String[] sentence in output)
             {
-               if ("bye goodbye cya".Contains(sentence[0].ToLower()))
-                    {
-                        running = false;
-                        Console.WriteLine("Goodbye");
-                        Console.ReadLine();
-                        dictionary.SaveAll();
-                        dictionary.PrintAll();
-                        Console.ReadLine();
-                    }
-                
+                if ("bye goodbye cya".Contains(sentence[0].ToLower()))
+                {
+                    running = false;
+                    Console.WriteLine("Goodbye");
+                    Console.ReadLine();
+                }
+
             }
+            learner.learn(output);
+            dictionary.SaveAll();
         }
     }
 }
