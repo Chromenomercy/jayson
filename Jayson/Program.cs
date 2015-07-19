@@ -12,8 +12,10 @@ namespace Jayson
         static Interface jayInterface;
         static SentenceLearner learner;
         static Boolean running;
+        static Random random;
         static void Main(string[] args)
         {
+            random = new Random();
             dictionary = new JayDictionary();
             dictionary.Load();
             jayInterface = new Interface(dictionary);
@@ -29,7 +31,6 @@ namespace Jayson
         {
             if (running)
             {
-                Random random = new Random();
                 Word random_word = dictionary.Words[random.Next(0, dictionary.Words.Count())];
                 List<string> sent_struct = random_word.properties.sentence_structures[random.Next(0, random_word.properties.sentence_structures.Count())];
                 Boolean first = true;

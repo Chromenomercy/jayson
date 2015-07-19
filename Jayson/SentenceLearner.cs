@@ -40,11 +40,12 @@ namespace Jayson
         {
             Console.WriteLine("What type of word is \"" + word + "\" when used in that context?");
             string first_type = Console.ReadLine();
-            new_word(word, first_type);
+            first_type = new_word(word, first_type);
             return first_type;
         }
-        private void new_word(String word, String word_type)
+        private string new_word(String word, String word_type)
         {
+            string first_type = word_type;
             if (dictionary.word_types.Contains(word_type))
             {
                 dictionary.CreateWord(word, word_type);
@@ -65,6 +66,7 @@ namespace Jayson
                             dictionary.AddType(word_type);
                         }
                         dictionary.CreateWord(word, word_type);
+                        first_type = word_type;
                     }
                     else
                     {
@@ -73,6 +75,7 @@ namespace Jayson
                     }
                 }
             }
+            return first_type;
         }
     }
 }
