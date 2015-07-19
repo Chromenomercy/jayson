@@ -8,49 +8,92 @@ namespace Jayson
 {
     class Program
     {
+        static JayDictionary dictionary;
+        static Interface jayInterface;
+        static SentenceLearner learner;
+        static Boolean running;
         static void Main(string[] args)
         {
-            JayDictionary dictionary = new JayDictionary();
+            dictionary = new JayDictionary();
             dictionary.Load();
-            Interface jayInterface = new Interface(dictionary);
-            SentenceLearner learner = new SentenceLearner(dictionary);
-            bool running = true;
-            while (true)
+            jayInterface = new Interface(dictionary);
+            learner = new SentenceLearner(dictionary);
+            running = true;
+            while (running)
+            {
+                Learn();
+                Write();
+            }
+        }
+        public static void Write()
+        {
+            if (running)
             {
                 Word random_word = dictionary.Words[new Random().Next(0, dictionary.Words.Count())];
                 List<string> sent_struct = random_word.properties.sentence_structures[new Random().Next(0, random_word.properties.sentence_structures.Count())];
+                Boolean first = true;
                 foreach (string word_type in sent_struct)
                 {
-                    if (word_type == "this")
-                        Console.Write(" " + random_word.Name);
-                    else
+                    if (first)
+                    {
+                        first = false;
+                        if (word_type == "this")
+                        {
+                            string word = random_word.Name;
+                            word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
+                            Console.Write(word);
+                        }
+                        else
+                        {
+                            List<Word> options = dictionary.GetWordsOfType(word_type);
+                            string word = options[new Random().Next(0, options.Count())].Name;
+                            word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
+                            Console.Write(word);
+                        }
+                    }
+                    else if (word_type == "name")
                     {
                         List<Word> options = dictionary.GetWordsOfType(word_type);
-                        Console.Write(" " + options[new Random().Next(0, options.Count())].Name);
+                        string word = options[new Random().Next(0, options.Count())].Name;
+                        word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
+                        Console.Write(" " + word);
                     }
-                }
-                Console.Write("\n");
-                Console.ReadLine();
-            }
-            while (running)
-            {
-                List<string[]> output = jayInterface.Read();
-                learner.learn(output);
-                foreach (String[] sentence in output)
-                {
-                    foreach(String word in sentence)
+                    else if (word_type == "this" && random_word.properties.Type == "name")
                     {
-                        if ("bye goodbye cya".Contains(word.ToLower()))
+                        string word = random_word.Name;
+                        word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
+                        Console.Write(" " + word);
+                    }
+                    else
+                    {
+                        if (word_type == "this")
+                            Console.Write(" " + random_word.Name);
+                        else
                         {
-                            running = false;
-                            Console.WriteLine("Goodbye");
-                            Console.ReadLine();
-                            dictionary.SaveAll();
-                            dictionary.PrintAll();
-                            Console.ReadLine();
+                            List<Word> options = dictionary.GetWordsOfType(word_type);
+                            Console.Write(" " + options[new Random().Next(0, options.Count())].Name);
                         }
                     }
                 }
+                Console.Write("\n");
+            }
+        }
+        public static void Learn()
+        {
+            List<string[]> output = jayInterface.Read();
+            learner.learn(output);
+            foreach (String[] sentence in output)
+            {
+               if ("bye goodbye cya".Contains(sentence[0].ToLower()))
+                    {
+                        running = false;
+                        Console.WriteLine("Goodbye");
+                        Console.ReadLine();
+                        dictionary.SaveAll();
+                        dictionary.PrintAll();
+                        Console.ReadLine();
+                    }
+                
             }
         }
     }

@@ -48,7 +48,7 @@ namespace Jayson
             List<String[]> sentences = new List<String[]>();
             String raw_input;
 
-            raw_input = Console.ReadLine();
+            raw_input = Console.ReadLine().ToLower();
             if (raw_input != "")
                 foreach (String sentence in raw_input.Split('.'))
                     sentences.Add(sentence.Split(' '));

@@ -122,12 +122,9 @@ namespace Jayson
                 XmlNode WordNode = NewDocument.CreateElement(word.Name);
                 XmlNode SentenceStructures = NewDocument.CreateElement("sentence_structures");
                 string raw_sentence_structures = "";
-                start = true;
                 foreach (List<string> sentence_structure in word.properties.sentence_structures)
                 {
-                    if (start)
-                        start = false;
-                    else
+                    if (raw_sentence_structures!="")
                         raw_sentence_structures += ".";
                     i = 0;
                     foreach (string word_type in sentence_structure)
@@ -164,6 +161,11 @@ namespace Jayson
                     words.Add(word);
             }
             return words;
+        }
+
+        internal void AddType(string word_type)
+        {
+            word_types.Add(word_type);
         }
     }
 }

@@ -40,48 +40,41 @@ namespace Jayson
         {
             Console.WriteLine("What type of word is \"" + word + "\" when used in that context?");
             string first_type = Console.ReadLine();
-            if (dictionary.Contains(word))
+            if (!dictionary.Contains(word))
             {
-                Console.WriteLine("(\"" + word + "\" found in JayDictionary)");
-                {
-                    Console.WriteLine("Does the word have a different word type?");
-                    if (yesses.Contains(Console.ReadLine().ToLower()))
-                    {
-                        new_word(word);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Thanks");
-                    }
-                }
-            } else {
-                new_word(word);
+                new_word(word, first_type);
             }
             return first_type;
         }
-        private void new_word(String word)
+        private void new_word(String word, String word_type)
         {
-            bool confirmed = false;
-            Console.WriteLine("(\"" + word + "\" not found in JayDictionary)");
-            int asked =0;
-            while (!confirmed)
+            if (dictionary.word_types.Contains(word_type))
             {
-                if (asked == 0)
-                    Console.Write("What word type is \"" + word + "\"? ");
-                else
-                    Console.Write("What other word type is \"" + word + "\"? ");
-                String word_type = Console.ReadLine();
-                if (dictionary.word_types.Contains(word_type))
+                dictionary.CreateWord(word, word_type);
+                Console.WriteLine("Done");
+            }
+            else
+            {
+                Boolean no_type = true;
+                Console.WriteLine("Type not found in JayDictionary");
+                while (no_type)
                 {
-                    dictionary.CreateWord(word, word_type);
-                    Console.WriteLine("Done");
+                    Console.WriteLine("Is " + word_type + " the correct type?");
+                    if (yesses.Contains(Console.ReadLine()))
+                    {
+                        no_type = false;
+                        if (!dictionary.word_types.Contains(word_type))
+                        {
+                            dictionary.AddType(word_type);
+                        }
+                        dictionary.CreateWord(word, word_type);
+                    }
+                    else
+                    {
+                        Console.WriteLine("What is the correct type?");
+                        word_type = Console.ReadLine();
+                    }
                 }
-                else
-                    Console.WriteLine("Type not found in JayDictionary, please add type");
-                Console.WriteLine("Is that the only word type for \"" + word + "\"?");
-                    if (yesses.Contains(Console.ReadLine().ToLower()))
-                        confirmed = true;
-                asked++;
             }
         }
     }
