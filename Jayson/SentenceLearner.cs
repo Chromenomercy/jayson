@@ -40,10 +40,7 @@ namespace Jayson
         {
             Console.WriteLine("What type of word is \"" + word + "\" when used in that context?");
             string first_type = Console.ReadLine();
-            if (!dictionary.Contains(word))
-            {
-                new_word(word, first_type);
-            }
+            new_word(word, first_type);
             return first_type;
         }
         private void new_word(String word, String word_type)
