@@ -1,4 +1,4 @@
 # jayson
-this is a non functioning ai
 
-it will take over the world
+This is Jayson.
+Jayson says "Grass is good"
