@@ -21,7 +21,7 @@ namespace Jayson
         }
         public Word(string name, string Type)
         {
-            Name = name
+            Name = name;
             this.Type = Type;
             this.sentence_structures = new List<List<string>>();
         }

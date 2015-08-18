@@ -56,7 +56,7 @@ namespace Jayson
                             words.Add(options[random.Next(0, options.Count())].Name);
                     }
 
-                    if (word_type == "name" || (word_type == "this" && random_word.properties.Type == "name"))
+                    if (word_type == "name" || (word_type == "this" && random_word.Type == "name"))
                         capitals[i] = true;
                 }
 
