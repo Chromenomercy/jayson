@@ -44,7 +44,7 @@ namespace Jayson
             List<string> types = new List<string>();
             foreach (Word word in Words)
                 if (WordName == word.Name)
-                    types.Add(word.properties.Type);
+                    types.Add(word.Type);
             return types;
  
         }
@@ -74,7 +74,7 @@ namespace Jayson
                             }
                         }
                     }
-                    words.Add(new Word(node1.Name, new WordProperties(node.Name, sentence_structures)));
+                    words.Add(new Word(node1.Name, node.Name, sentence_structures));
                 }
             }
             return words;
@@ -92,17 +92,17 @@ namespace Jayson
         {
             Boolean existing = false;
             foreach(Word word in Words)
-                if (word.Name == word_name && word.properties.Type == word_type)
+                if (word.Name == word_name && word.Type == word_type)
                     existing = true;
             
             if(!existing)
-                Words.Add(new Word(word_name, new WordProperties(word_type)));
+                Words.Add(new Word(word_name, word_type));
         }
         public void PrintAll()
         {
             foreach(Word word in Words)
             {
-                Console.WriteLine(word.Name + ": " + word.properties.Type);
+                Console.WriteLine(word.Name + ": " + word.Type);
             }
         }
         public void SaveAll()
@@ -122,7 +122,7 @@ namespace Jayson
                 XmlNode WordNode = NewDocument.CreateElement(word.Name);
                 XmlNode SentenceStructures = NewDocument.CreateElement("sentence_structures");
                 string raw_sentence_structures = "";
-                foreach (List<string> sentence_structure in word.properties.sentence_structures)
+                foreach (List<string> sentence_structure in word.sentence_structures)
                 {
                     if (raw_sentence_structures!="")
                         raw_sentence_structures += ".";
@@ -139,7 +139,7 @@ namespace Jayson
                 SentenceStructures.InnerText = raw_sentence_structures;
                 WordNode.AppendChild(SentenceStructures);
                 foreach (XmlNode type in rootNode.ChildNodes)
-                    if (type.Name == word.properties.Type)
+                    if (type.Name == word.Type)
                         type.AppendChild(WordNode);
                 
             }
@@ -149,15 +149,15 @@ namespace Jayson
         {
             sentence_structure[indexOfWord] = "this";
             foreach (Word word in Words)
-                if (word.Name == WordName && word.properties.Type == WordType)
-                    word.properties.sentence_structures.Add(sentence_structure);
+                if (word.Name == WordName && word.Type == WordType)
+                    word.sentence_structures.Add(sentence_structure);
         }
         public List<Word> GetWordsOfType(string type)
         {
             List<Word> words = new List<Word>();
             foreach (Word word in Words)
             {
-                if (word.properties.Type == type)
+                if (word.Type == type)
                     words.Add(word);
             }
             return words;
