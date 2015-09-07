@@ -9,13 +9,15 @@ namespace Jayson
     class ContextManager
     {
         Dictionary<string, byte> wordsInContext;
-        public ContextManager()
+        string defaultWord;
+        public ContextManager(string defaultWord)
         {
             Dictionary<string, byte> wordsInContext = new Dictionary<string, byte>();
+            this.defaultWord = defaultWord;
         }
         public void Update(string[] words)
         {
-            foreach (System.Collections.Generic.KeyValuePair<string, byte> word in wordsInContext)
+            foreach (KeyValuePair<string, byte> word in wordsInContext)
             {
                 if (word.Value == 1)
                 {
@@ -37,6 +39,18 @@ namespace Jayson
                     wordsInContext.Add(word, 10);
                 }
             }
+        }
+        public string GetWord()
+        {
+            KeyValuePair<string, byte> highest = new KeyValuePair<string, byte>(defaultWord, 1);
+            foreach (KeyValuePair<string, byte> word in wordsInContext)
+            {
+                if (highest.Value < word.Value)
+                {
+                    highest = word;
+                }
+            }
+            return highest.Key;
         }
     }
 }
