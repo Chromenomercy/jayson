@@ -13,6 +13,7 @@ namespace Jayson
         static SentenceLearner learner;
         static Boolean running;
         static Random random;
+
         static void Main(string[] args)
         {
             random = new Random();
@@ -27,59 +28,42 @@ namespace Jayson
                 Write();
             }
         }
+
         public static void Write()
         {
             if (running)
             {
                 Word random_word = dictionary.Words[random.Next(0, dictionary.Words.Count())];
-                List<string> sent_struct = random_word.properties.sentence_structures[random.Next(0, random_word.properties.sentence_structures.Count())];
-                Boolean first = true;
+                List<string> sent_struct = random_word.sentence_structures[random.Next(0, random_word.sentence_structures.Count())];
+                List<string> words = new List<string>();
+                Boolean[] capitals = new Boolean[sent_struct.Count];
+                int i = 0;
+
                 foreach (string word_type in sent_struct)
                 {
-                    if (first)
+                    if (i==0)
+                        capitals[i] = true;
+                    else
+                        capitals[i] = false;
+
+                    if(word_type=="this")
                     {
-                        first = false;
-                        if (word_type == "this")
-                        {
-                            string word = random_word.Name;
-                            word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
-                            Console.Write(word);
-                        }
-                        else
-                        {
-                            List<Word> options = dictionary.GetWordsOfType(word_type);
-                            string word = options[random.Next(0, options.Count())].Name;
-                            word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
-                            Console.Write(word);
-                        }
-                    }
-                    else if (word_type == "name")
-                    {
-                        List<Word> options = dictionary.GetWordsOfType(word_type);
-                        string word = options[random.Next(0, options.Count())].Name;
-                        word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
-                        Console.Write(" " + word);
-                    }
-                    else if (word_type == "this" && random_word.properties.Type == "name")
-                    {
-                        string word = random_word.Name;
-                        word = String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower());
-                        Console.Write(" " + word);
+                        words.Add(random_word.Name);
                     }
                     else
                     {
-                        if (word_type == "this")
-                            Console.Write(" " + random_word.Name);
-                        else
-                        {
                             List<Word> options = dictionary.GetWordsOfType(word_type);
-                            Console.Write(" " + options[random.Next(0, options.Count())].Name);
-                        }
+                            words.Add(options[random.Next(0, options.Count())].Name);
                     }
+
+                    if (word_type == "name" || (word_type == "this" && random_word.Type == "name"))
+                        capitals[i] = true;
                 }
-                Console.Write("\n");
+
+                jayInterface.Write(words, capitals);
             }
         }
+
         public static void Learn()
         {
             List<string[]> output = jayInterface.Read(); 
@@ -93,6 +77,7 @@ namespace Jayson
                 }
 
             }
+
             learner.learn(output);
             dictionary.SaveAll();
         }
