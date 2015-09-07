@@ -66,19 +66,7 @@ namespace Jayson
 
         public static void Learn()
         {
-            List<string[]> output = jayInterface.Read(); 
-            foreach (String[] sentence in output)
-            {
-                if ("bye goodbye cya".Contains(sentence[0].ToLower()))
-                {
-                    running = false;
-                    Console.WriteLine("Goodbye");
-                    Console.ReadLine();
-                }
-
-            }
-
-            learner.learn(output);
+            learner.learn(jayInterface.Read());
             dictionary.SaveAll();
         }
     }

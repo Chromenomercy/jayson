@@ -115,7 +115,6 @@ namespace Jayson
                 XmlNode typeNode = NewDocument.CreateElement(type);
                 rootNode.AppendChild(typeNode);
             }
-            bool start;
             int i;
             foreach (Word word in Words)
             {

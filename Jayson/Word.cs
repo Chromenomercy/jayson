@@ -12,7 +12,6 @@ namespace Jayson
         public Int16 current_focus;
         public List<List<string>> sentence_structures;
         public string Type;
-        private string[] contexts;
         public Word(string name, string Type, List<List<string>> sentence_structures)
         {
             Name = name;
