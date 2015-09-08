@@ -30,11 +30,11 @@ namespace Jayson
             return sentences;
         }
 
-        public void Write(List<string> words, Boolean[] capitals)
+        public void Write(List<Word> words, Boolean[] capitals)
         {
             int i = 0;
 
-            foreach (string word in words)
+            foreach (Word word in words)
             {
                 if (i != 0)
                 {
@@ -42,9 +42,9 @@ namespace Jayson
                 }
 
                 if (capitals[i])
-                    Console.Write(String.Concat(word[0].ToString().ToUpper(), word.Remove(0, 1).ToLower()));
+                    Console.Write(String.Concat(word.Name[0].ToString().ToUpper(), word.Name.Remove(0, 1).ToLower()));
                 else
-                    Console.Write(word);
+                    Console.Write(word.Name);
 
                 i++;
             }

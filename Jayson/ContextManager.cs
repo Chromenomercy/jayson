@@ -8,16 +8,16 @@ namespace Jayson
 {
     class ContextManager
     {
-        Dictionary<string, byte> wordsInContext;
-        string defaultWord;
-        public ContextManager(string defaultWord)
+        Dictionary<Word, byte> wordsInContext;
+        Word defaultWord;
+        public ContextManager(Word defaultWord)
         {
-            Dictionary<string, byte> wordsInContext = new Dictionary<string, byte>();
+            wordsInContext = new Dictionary<Word, byte>();
             this.defaultWord = defaultWord;
         }
-        public void Update(string[] words)
+        public void Update(List<Word> words)
         {
-            foreach (KeyValuePair<string, byte> word in wordsInContext)
+            foreach (KeyValuePair<Word, byte> word in new Dictionary<Word, byte>(wordsInContext))
             {
                 if (word.Value == 1)
                 {
@@ -28,7 +28,7 @@ namespace Jayson
                     wordsInContext[word.Key] -= 1;
                 }
             }
-            foreach (string word in words)
+            foreach (Word word in words)
             {
                 if (wordsInContext.ContainsKey(word))
                 {
@@ -40,10 +40,10 @@ namespace Jayson
                 }
             }
         }
-        public string GetWord()
+        public Word GetWord()
         {
-            KeyValuePair<string, byte> highest = new KeyValuePair<string, byte>(defaultWord, 1);
-            foreach (KeyValuePair<string, byte> word in wordsInContext)
+            KeyValuePair<Word, byte> highest = new KeyValuePair<Word, byte>(defaultWord, 1);
+            foreach (KeyValuePair<Word, byte> word in wordsInContext)
             {
                 if (highest.Value < word.Value)
                 {

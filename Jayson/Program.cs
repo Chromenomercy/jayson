@@ -13,6 +13,7 @@ namespace Jayson
         static SentenceLearner learner;
         static Boolean running;
         static Random random;
+        static ContextManager contextManager;
 
         static void Main(string[] args)
         {
@@ -21,6 +22,7 @@ namespace Jayson
             dictionary.Load();
             jayInterface = new Interface(dictionary);
             learner = new SentenceLearner(dictionary);
+            contextManager = new ContextManager(dictionary.Words[0]);
             running = true;
             while (running)
             {
@@ -33,9 +35,10 @@ namespace Jayson
         {
             if (running)
             {
-                Word random_word = dictionary.Words[random.Next(0, dictionary.Words.Count())];
+                //Word random_word = dictionary.Words[random.Next(0, dictionary.Words.Count())];
+                Word random_word = contextManager.GetWord();
                 List<string> sent_struct = random_word.sentence_structures[random.Next(0, random_word.sentence_structures.Count())];
-                List<string> words = new List<string>();
+                List<Word> words = new List<Word>();
                 Boolean[] capitals = new Boolean[sent_struct.Count];
                 int i = 0;
 
@@ -48,12 +51,12 @@ namespace Jayson
 
                     if(word_type=="this")
                     {
-                        words.Add(random_word.Name);
+                        words.Add(random_word);
                     }
                     else
                     {
                             List<Word> options = dictionary.GetWordsOfType(word_type);
-                            words.Add(options[random.Next(0, options.Count())].Name);
+                            words.Add(options[random.Next(0, options.Count())]);
                     }
 
                     if (word_type == "name" || (word_type == "this" && random_word.Type == "name"))
@@ -66,7 +69,7 @@ namespace Jayson
 
         public static void Learn()
         {
-            learner.learn(jayInterface.Read());
+            contextManager.Update(learner.learn(jayInterface.Read()));
             dictionary.SaveAll();
         }
     }

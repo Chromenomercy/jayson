@@ -147,9 +147,7 @@ namespace Jayson
         public void AddSentenceStructure(List<string> sentence_structure, string WordName, string WordType, int indexOfWord)
         {
             sentence_structure[indexOfWord] = "this";
-            foreach (Word word in Words)
-                if (word.Name == WordName && word.Type == WordType)
-                    word.sentence_structures.Add(sentence_structure);
+            this.GetWord(WordName, WordType).sentence_structures.Add(sentence_structure);
         }
         public List<Word> GetWordsOfType(string type)
         {
@@ -165,6 +163,13 @@ namespace Jayson
         internal void AddType(string word_type)
         {
             word_types.Add(word_type);
+        }
+        public Word GetWord(string name, string type)
+        {
+            foreach (Word word in Words)
+                if (word.Name == name && word.Type == type)
+                    return word;
+            return null;
         }
     }
 }

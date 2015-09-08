@@ -14,27 +14,32 @@ namespace Jayson
         {
             this.dictionary = dictionary;
         }
-        public void learn(List<string[]> sentences)
+        public List<Word> learn(List<string[]> sentences)
         {
             string[] structure;
             int i;
+            List<Word> words = new List<Word>();
             foreach (String[] sentence in sentences)
             {
                 structure = new string[sentence.Length];
                 i = 0;
+                List<string> clean_words = new List<string>();
                 foreach (String word in sentence)
                 {
                     string clean_word = new string((from c in word where char.IsLetterOrDigit(c) select c).ToArray());
                     structure[i]=ask_word(clean_word);
+                    clean_words.Add(clean_word);
                     i++;
                 }
                 i=0;
-                foreach (String word in sentence)
+                foreach (String word in clean_words)
                 {
                     dictionary.AddSentenceStructure(new List<string>(structure), word, structure[i], i);
+                    words.Add(dictionary.GetWord(word, structure[i]));
                     i++;
                 }
             }
+            return words;
         }
         public string ask_word(string word)
         {
