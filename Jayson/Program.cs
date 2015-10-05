@@ -26,8 +26,8 @@ namespace Jayson
             running = true;
             while (running)
             {
-                Learn();
                 Write();
+                Read();
             }
         }
 
@@ -62,15 +62,19 @@ namespace Jayson
                     if (word_type == "name" || (word_type == "this" && random_word.Type == "name"))
                         capitals[i] = true;
                 }
-
+                contextManager.Update(words);
                 jayInterface.Write(words, capitals);
             }
         }
 
         public static void Learn()
         {
-            contextManager.Update(learner.learn(jayInterface.Read()));
+            contextManager.Update(learner.Learn(jayInterface.Read()));
             dictionary.SaveAll();
+        }
+        public static void Read()
+        {
+            contextManager.Update(learner.QuickLearn(jayInterface.Read()));
         }
     }
 }
