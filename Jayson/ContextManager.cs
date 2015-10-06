@@ -32,25 +32,28 @@ namespace Jayson
             {
                 if (wordsInContext.ContainsKey(word))
                 {
-                    wordsInContext[word] += 10;
+                    wordsInContext[word] = 5;
                 }
                 else
                 {
-                    wordsInContext.Add(word, 10);
+                    wordsInContext.Add(word, 5);
                 }
             }
         }
         public Word GetWord()
         {
-            KeyValuePair<Word, byte> highest = new KeyValuePair<Word, byte>(defaultWord, 1);
+            int total = 0;
+            List<Word> possibleWords = new List<Word>();
+            possibleWords.Add(defaultWord);
             foreach (KeyValuePair<Word, byte> word in wordsInContext)
             {
-                if (highest.Value < word.Value)
+                total += word.Value;
+                for (int i = 0; i < word.Value; i++)
                 {
-                    highest = word;
+                    possibleWords.Add(word.Key);
                 }
             }
-            return highest.Key;
+            return possibleWords[new Random().Next(0, total)];
         }
     }
 }
