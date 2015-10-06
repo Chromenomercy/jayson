@@ -21,7 +21,7 @@ namespace Jayson
             document = new XmlDocument(); 
             directory_path = Path.Combine(
                  Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                 @"jason_ai"
+                 @"jayson_ai"
              );
             dictionary_path = Path.Combine(directory_path, @"dictionary.xml");
         }
@@ -31,7 +31,7 @@ namespace Jayson
             if (!File.Exists(dictionary_path))
             {
                 StreamWriter file = File.CreateText(dictionary_path);
-                file.Write("<dictionary>\n<name>\n<jason/>\n</name>\n</dictionary>");
+                file.Write(Properties.Resources.dict2);
                 file.Close();
             }
             document.Load(dictionary_path);

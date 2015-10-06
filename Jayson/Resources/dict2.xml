@@ -1,0 +1,7 @@
+<dictionary>	<name>
+		<jayson>
+			<sentence_structures>pronoun verb this</sentence_structures>
+		</jayson>
+	</name>
+	<pronoun>		<i>			<sentence_structures>this verb name</sentence_structures>		</i>	</pronoun>	<verb>		<am>			<sentence_structures>pronoun this name</sentence_structures>		</am>	</verb>
+</dictionary>
