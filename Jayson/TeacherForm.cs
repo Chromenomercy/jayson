@@ -21,5 +21,15 @@ namespace Jayson
         {
 
         }
+
+        private void toolStripProgressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

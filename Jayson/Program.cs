@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace Jayson
 {
@@ -24,6 +25,9 @@ namespace Jayson
             learner = new SentenceLearner(dictionary);
             contextManager = new ContextManager(dictionary.Words[0]);
             running = true;
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new TeacherForm());
             while (running)
             {
                 Write();
