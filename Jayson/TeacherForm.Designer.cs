@@ -28,38 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.sentenceInput = new Jayson.SentenceInput();
             this.SuspendLayout();
             // 
-            // textBox1
+            // sentenceInput
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(400, 13);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Welcome to the Jayson Teacher. Input a sentence to begin.";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.sentenceInput.Location = new System.Drawing.Point(0, 1);
+            this.sentenceInput.Name = "sentenceInput";
+            this.sentenceInput.Size = new System.Drawing.Size(711, 42);
+            this.sentenceInput.TabIndex = 0;
             // 
             // TeacherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 584);
-            this.Controls.Add(this.textBox1);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(710, 44);
+            this.Controls.Add(this.sentenceInput);
+            this.MaximizeBox = false;
             this.Name = "TeacherForm";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Jayson Teacher";
             this.Load += new System.EventHandler(this.TeacherForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private SentenceInput sentenceInput;
+
 
     }
 }
